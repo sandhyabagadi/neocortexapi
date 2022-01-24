@@ -26,6 +26,7 @@ namespace NeoCortexApiSample
 
             int inputBits = 100;
             int numColumns = 1024;
+            int numColumns = 2048;
 
             HtmConfig cfg = new HtmConfig(new int[] { inputBits }, new int[] { numColumns })
             {
