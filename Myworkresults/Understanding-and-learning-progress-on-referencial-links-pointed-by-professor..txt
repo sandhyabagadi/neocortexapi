@@ -1,0 +1,75 @@
+Analyse and describe boosting algorithm.
+
+1. Referred the content from medium.com which explains the fundamentals of the neocortex and the steps to involved in learning and experimenting the neocortex.
+
+What's understood from this web post:
+
+Vernon Mountcastle proposed a single powerful algorithm implemented by every region of cortex. If you connect regions of cortex together in a suitable hierarchy and provide a stream of input, it will learn about its environment. It's quiet inside. The brain learns only by learnings, it has no knowledge of itself. To explain it in a simple way lets say that, both auditory cortex and visual cortex are unified by one algorithm. The surprising result is that the ferrets develop functioning visual pathways in the auditory portions of their brains. In other words, they see with brain tissue that normally hears sounds i.e the cortex does something universal that can be applied to any type of sensory or motor system.
+
+Neocortex:
+It is like a sheet of napkin squeezed into a skull just below the dura matter of the skull consisting of all the areas required for cognition. To understand the basis of artificial general intelligence we need to decipher the intelligence of neocortex.
+
+There are 6 steps involved in reverse engineering the neocortex:
+
+* Sparse Distributed Representation
+* Encoding
+* Spatial Pooling
+* Learning
+* Boosting
+* Temporal Pooling
+
+HTM - Hierarchical temporal memory.
+
+HTM starts with the assumption that everything the neocortex does is based on memory and recall of sequences of patterns.
+
+The basic principle of HTM (Hierarchical Temporal Memory)/CLA(Cortical Learning Algorithm) is Temporal Memory i.e the memory of sequences. This theory postulates that every excitatory neuron in the neocortex is learning transitions of patterns and that the majority of synapses on every neuron are dedicated to learning these transitions.
+
+
+
+1.Sparse Distributed Representations:
+
+SDRs are the language of brain. The reason why it is termed as Sparse is because of the fact that only few neurons fire when a cognitive task is performed i.e. if you take a snapshot of neurons in the brain,   it is highly likely that you will only see less than 2% neurons in an active state (Experimental evidence of Sparse firing in the neocortex). An SDR consists of thousands of bits where at any point in time a    small percentage of the bits are 1's and the rest are 0's. The bits in an SDR correspond to neurons in the brain, a 1 being a relatively active neuron and a 0 being a relatively inactive neuron.
+
+There are certain properties of SDRs:
+* Capacity of SDRs and the probability of mismatches
+* Robustness of SDRs and the probability of error with noise
+* Reliable classification of a list of SDR vectors
+* Unions of SDRs
+* Robustness of unions in the presence of noise
+
+
+2.Encoding:
+
+- The encoder converts the native format of the data into an SDR that can be fed into an HTM system. 
+- The encoder is in charge of identifying which output bits should be ones and which should be zeros for a particular input value in order to capture the data's significant semantic properties.
+- SDRs with similar input values should have a high degree of overlap.
+
+Characteristics:
+- Semantically similar data should result in SDRs with overlapping active bits.
+- Same input should always produce the same SDR as an output.
+- The output should have the same dimensionality for all the inputs.
+- The output should have similar sparsity for all inputs and have enough one bits to deal         with noise and subsampling .
+
+3. Spacial pooling:
+
+Spatial pooling Algorithm is for solving problems to represent the input active neurons (comping from sensory or motor organs) to make that the cortex learn the pattern of sequences. It accepts the input   vector of different sizes and represents it into sparse vectors of same size(It kind of normalises it). The output of the Spatial Pooler represents the mini columns i.e the pyramidal neuron in the cortices.It possess certain properties like maintaining a fixed sparsity i.e no matter how many bits are on and off in the input the spatial pooler need to maintain the fixed sparsity and to maintain the overlap   properties i.e two similar inputs should produce similar outputs in the columns. The spatial pooler takes the input data and translates the incoming data into active columns.
+
+
+4. Learning:
+
+- Learning takes place exclusively in the Spatial Pooler's active columns. 
+- All connections that lie inside the input space will have their permeance value increased,implying that the synaptic connection between them will be strengthened, whereas any connections that fall outside of the input space will have their permeance value decremented. 
+- Learning Spatial Pooler outperforms Random Spatial Pooler in terms of learning.
+
+5. Boosting:
+
+In order for a column in a Spatial pooler to exist it should be a winning column i.e the overlap score should be above some threshold value while non-winning columns are inhibited from learning. Only the    winner columns can update their permanence values. Boosting helps to change the overlap score before the inhibition occurs giving less active columns a better chance to express themselves and diminishing    columns that seem overactive
+
+6. Temporal pooling:
+
+Temporal Pooling enables us to understand the sequential pattern over time. It learns the sequences of the active column from the Spatial Pooler and predicts what spatial pattern in coming next based on the temporal context of each input .
+
+
+
+
+
