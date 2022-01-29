@@ -80,6 +80,54 @@ Sparse Distributed Representations (SDRs) are binary representation i.e. an arra
 The first step of using an HTM system is to convert a data source into an SDR using an encoder. The encoder converts the native format of the data into an SDR that can be fed into an HTM system. The encoder is responsible for determining which output bits should be ones, and which should be zeros, for a given input value in such a way as to capture the important semantic characteristics of the data. Similar input values should produce highly overlapping SDRs.
 
 
+# Boosting and important parameters:
+
+			Boosting:
+				Boosting can be helpful in driving columns to compete for activation. Boosting is monitored by both the activity
+				and overlap duty cycles (activeDutyCycle(c) and overlapDutyCycle(c), respectively). Following inhibition, if a
+				column’s active duty cycle falls below the active duty cycles of neighboring columns, then its internal boost
+				factor (boost(c)) will increase above one. If a column's active duty cycle arises above the active duty cycles of
+				neighboring columns, its boost factor will decrease below one This helps drive the competition amongst
+				columns and achieve the spatial pooling goal of using all the columns. Before inhibition, if a column’s overlap
+				duty cycle is below its minimum acceptable value (calculated dynamically as a function of
+				minPctOverlapDutyCycle and the overlap duty cycle of neighboring columns), then all its permanence values
+				are boosted by the increment amount. A subpar duty cycle implies either a column's previously learned inputs
+				are no longer ever active, or the vast majority of them have been "hijacked" by other columns. By raising all
+				synapse permanences in response to a subpar duty cycle before inhibition, we enable a column to search for
+				new inputs.
+			From the above explination we can confirm that activeDutyCycle and overlapDutyCycle are some of the parameters that plays crucial role in Boosting.
+			
+			Imporatant parameters and their usage in spatial pooler and Boosting
+			
+				1. columnCount :The total number of columns in the Spatial Pooling algorithm, and the HTM
+							 region. This is task dependent but we recommend a minimum value of 2048.
+				2. overlap(c): The Spatial Pooling algorithm overlap of column c with a particular input
+							pattern.
+				3. activeColumns(t): List of column indices that are winners due to bottom-up input. 
+				4. inhibitionRadius: Average connected receptive field size of the columns.
+				5. boost(c): The boost value for column c as computed during learning – used to increase
+						  the overlap value for inactive columns. 
+				6. boostStrength: A number greater or equal than 0.0 to control the strength of boosting. No
+								boosting is applied if boostStrength=0.
+				7. synapse: A data structure representing a synapse, containing a permanence value and
+                         the source input index. 
+				8. activeDutyCycle(c): A sliding average representing how often column c has been active after
+									inhibition (e.g. over the last 1000 iterations). 
+				9. overlapDutyCycle(c): A sliding average representing how often column c has had significant overlap
+									(i.e. greater than stimulusThreshold) with its inputs (e.g. over the last 1000
+									 iterations). 
+				10. updateActiveDutyCycle(c): Computes a moving average of how often column c has been active after
+										  inhibition.
+				11. updateOverlapDutyCycle(c): Computes a moving average of how often column c has overlap greater than
+											stimulusThreshold. 
+				12. maxDutyCycle(cols): Returns the maximum active duty cycle of the columns in the given list of
+									columns.
+				13. boostFunction(c): Returns the boost value of a column. The boost value is a positive scalar
+								value. It is above one if the active duty cycle is above the mean active duty
+								cycles of neighboring columns. It is less than one if a column has higher active
+								duty cycle than its neighbors.
+
+
 
 
 
