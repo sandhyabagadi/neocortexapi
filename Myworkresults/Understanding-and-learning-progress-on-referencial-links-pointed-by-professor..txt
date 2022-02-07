@@ -224,5 +224,19 @@ The first step of using an HTM system is to convert a data source into an SDR us
 	            The SP will then exit the neonatal stage and resume normal operations, albeit without the boosting.
 
 
+# Working with spacial sequence learning and its analysis.
+
+1. Initially ran the program without a change to note down output.
+
+- the Stability becomes "TRUE"  at [cycle=153, i=82, cols=41, s=100]
+- the stability become "False" at [cycle=181, i=29, cols=41, s=95.1219512195122] 
+
+#changed minOctOverlapCycles to 0 and maxBoost to 0 then it taken 123th iteration to reach stability
+#changed minOctOverlapCycles to 0 and maxBoost to 3 then it taken 110th iteration to reach stability
+
+increasing Max_Boost results in decreased iterations required to reach stability.
+
+
+
 
 
