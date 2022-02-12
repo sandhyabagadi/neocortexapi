@@ -237,6 +237,22 @@ The first step of using an HTM system is to convert a data source into an SDR us
 increasing Max_Boost results in decreased iterations required to reach stability.
 
 
+2. Working with the Method UpdateBoostFactors.
+
+- Changing the values of MaxBoost while keeping the DutyCyclePeriod = 100000; IsBumpUpWeakColumnsDisabled = true;
+
+a. MaxBoost = 1 DutyCyclePeriod = 100000;
+-  Reached stability at [cycle=0056, i=0, cols=:40 s=100].
+-  Later it continued to be stable and did not ossilate.
+
+b. MaxBoost = 5 DutyCyclePeriod = 100000;
+- Reached stability at [cycle=0056, i=0, cols=:40 s=100].
+- Continued to be stable later
+
+c. MaxBoost = 10 DutyCyclePeriod = 100000;
+- Reached stability at [cycle=0056, i=0, cols=:40 s=100]
+- Continued to be stable later
+
 
 
 
