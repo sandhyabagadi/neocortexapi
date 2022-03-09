@@ -50,6 +50,7 @@ namespace NeoCortexApi
         }
 
         private Connections connections;
+        private readonly double[] boostInterim;
 
         /// <summary>
         /// Initializes the Spatial Pooler algorithm.
@@ -505,35 +506,7 @@ namespace NeoCortexApi
 
             c.HtmConfig.OverlapDutyCycles = CalcActivationFrequency(c.HtmConfig.OverlapDutyCycles, overlapCycles, period);
 
-<<<<<<< HEAD
-            c.HtmConfig.ActiveDutyCycles = UpdateDutyCyclesHelper(c, c.HtmConfig.ActiveDutyCycles, activeArray, period);
-
-            var filepath = "UpdateDutyCycles_analysis.csv";
-            string OverlapDutyCycles_string = String.Join(",", c.HtmConfig.OverlapDutyCycles.Select(x => x.ToString()).ToArray());
-            string ActiveDutyCycles_string = String.Join(",", c.HtmConfig.ActiveDutyCycles.Select(x => x.ToString()).ToArray());
-            string overlapArray_string = String.Join(",", overlapArray.Select(x => x.ToString()).ToArray());
-            string activeArray_string = String.Join(",", activeArray.Select(x => x.ToString()).ToArray());
-            if (!File.Exists(filepath))
-            {
-                using (StreamWriter writer = new StreamWriter(new FileStream(filepath,
-                FileMode.Create, FileAccess.Write)))
-                {
-                    writer.WriteLine("sep=:");
-                    writer.WriteLine("overlapArray:activeArray:OverlapDutyCycles: ActiveDutyCycles");
-                    writer.WriteLine($"{overlapArray_string}:{activeArray_string}:{OverlapDutyCycles_string}: {ActiveDutyCycles_string}");
-                }
-            }
-            else
-            {
-                using (StreamWriter writer = new StreamWriter(new FileStream(filepath,
-                FileMode.Append, FileAccess.Write)))
-                {
-                    writer.WriteLine($"{overlapArray_string}:{activeArray_string}:{OverlapDutyCycles_string}: {ActiveDutyCycles_string}");
-                }
-            }
-=======
             c.HtmConfig.ActiveDutyCycles = CalcActivationFrequency(c.HtmConfig.ActiveDutyCycles, activeCycles, period);
->>>>>>> master
         }
 
 
@@ -1250,7 +1223,6 @@ namespace NeoCortexApi
             // will not be stimulated.
             ArrayUtils.SetIndexesTo(boostFactors, idxOfActiveColumns.ToArray(), 1.0d);
 
-<<<<<<< HEAD
             c.BoostFactors = boostInterim;
             string activeDutyCycles_string = String.Join(",", activeDutyCycles.Select(x => x.ToString()).ToArray());
             string minActiveDutyCycles_string = String.Join(",", minActiveDutyCycles.Select(x => x.ToString()).ToArray());
@@ -1275,9 +1247,7 @@ namespace NeoCortexApi
                     writer.WriteLine($"{activeDutyCycles_string}: {minActiveDutyCycles_string}: {idxOfActiveColumns_string}: {boostInterim_string}");
                 }
             }
-=======
             c.BoostFactors = boostFactors;
->>>>>>> master
         }
 
 
