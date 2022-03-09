@@ -1,4 +1,4 @@
-﻿using NeoCortexApi.Encoders;
+using NeoCortexApi.Encoders;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -27,7 +27,11 @@ namespace NeoCortexApiSample
             //SequenceLearning experiment = new SequenceLearning();
             //experiment.Run();
 
+<<<<<<< HEAD
            // RunMultiSimpleSequenceLearningExperiment();
+=======
+            //RunMultiSimpleSequenceLearningExperiment();
+>>>>>>> master
             //RunMultiSequenceLearningExperiment();
         }
 
