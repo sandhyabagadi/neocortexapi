@@ -19,8 +19,8 @@ namespace NeoCortexApiSample
         {
             //
             // Starts experiment that demonstrates how to learn spatial patterns.
-            SpatialPatternLearning experiment = new SpatialPatternLearning();
-            experiment.Run();
+            //SpatialPatternLearning experiment = new SpatialPatternLearning();
+            //experiment.Run();
 
             //
             // Starts experiment that demonstrates how to learn spatial patterns.
@@ -28,7 +28,7 @@ namespace NeoCortexApiSample
             //experiment.Run();
 
             //RunMultiSimpleSequenceLearningExperiment();
-            //RunMultiSequenceLearningExperiment();
+            RunMultiSequenceLearningExperiment();
         }
 
         private static void RunMultiSimpleSequenceLearningExperiment()
@@ -40,8 +40,8 @@ namespace NeoCortexApiSample
 
             //
             // Prototype for building the prediction engine.
-            //MultiSequenceLearning experiment = new MultiSequenceLearning();
-           // var predictor = experiment.Run(sequences);
+            MultiSequenceLearning experiment = new MultiSequenceLearning();
+            var predictor = experiment.Run(sequences);
          
         }
 
