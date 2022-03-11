@@ -230,6 +230,15 @@ namespace NeoCortexApi.Entities
         public double MaxBoost { get; set; } = 10.0;
 
         /// <summary>
+        /// Counter for testing purpose
+        /// </summary>
+        public int count { get; set; } = 0;
+        /// <summary>
+        /// Counter for testing purpose
+        /// </summary>
+        public int cyclesVal { get; set; } = 0;
+
+        /// <summary>
         /// Controls if bumping-up of weak columns shell be done.
         /// </summary>
         //public bool IsBumpUpWeakColumnsDisabled { get; set; } = false;
@@ -413,6 +422,7 @@ namespace NeoCortexApi.Entities
             this.MaxBoost = 10.0;
             this.WrapAround = true;
             this.Random = new ThreadSafeRandom(42);
+            this.count = 0;
         }
 
         public void ClearModuleTopology()
