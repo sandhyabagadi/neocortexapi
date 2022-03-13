@@ -41,7 +41,7 @@ namespace NeoCortexApiSample
                 CellsPerColumn = 10,
                 MaxBoost = maxBoost,
                 count = countval,
-                DutyCyclePeriod = 1000,
+                DutyCyclePeriod = 10000,
                 //IsBumpUpWeakColumnsDisabled = true,
                 MinPctOverlapDutyCycles = minOctOverlapCycles,
 
