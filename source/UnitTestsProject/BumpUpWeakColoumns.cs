@@ -50,7 +50,7 @@ namespace UnitTestsProject
         }
 
         /**
-         * Testing permanence values are updated correctly in BumpUpWeakColumns method with SynPermBelowStimulusInc as 0.1
+         * Testing permanence values are updated correctly in BumpUpWeakColumns method with SynPermBelowStimulusInc as 0.01
          */
         [TestMethod]
         [TestCategory("UnitTest")]
@@ -117,7 +117,7 @@ namespace UnitTestsProject
             }
         }
         /**
-         * Testing permanence values are updated correctly in BumpUpWeakColumns method with SynPermTrimThreshold as 0.01
+         * Testing permanence values are updated correctly in BumpUpWeakColumns method with SynPermBelowStimulusInc as 0.02
          */
         [TestMethod]
         [TestCategory("UnitTest")]
