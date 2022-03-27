@@ -32,7 +32,7 @@ The main idea behind boosting is that the SDR's of symbols uses a wider range of
  Executed the program using Spatial Pattern Learning experiment by updating/changing different boosting parameters to observe the affect of these parameters on overall stability, the following cases are shown below.
 
 Case1: Changed the Duty Cycle Period and max Boost to (50000 & 1.0) by having other values as constant.
-![parameter values](https://github.com/sandhyabagadi/neocortexapi/blob/cb9d44f65099e3e148d6d04ac5f4551175851ac6/source/MySEProject/All_images-used/change%20of%20parameter%20values.png)
+[parameter values](https://github.com/sandhyabagadi/neocortexapi/blob/cb9d44f65099e3e148d6d04ac5f4551175851ac6/source/MySEProject/All_images-used/change%20of%20parameter%20values.png)
 
 Case2: With Duty Cycle Period and max Boost as (100000 & 5.0).
 [values-image](https://github.com/sandhyabagadi/neocortexapi/blob/4dae45f4992a9d6fa8d585516b3e882a4ce255cf/source/MySEProject/All_images-used/case2.png)
