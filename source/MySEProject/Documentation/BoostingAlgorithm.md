@@ -16,14 +16,14 @@ Spatial pooling Algorithm is for solving problems to represent the input active 
 
 The spatial pooler takes the input data and translates the incoming data into active columns. Lets assume that for a given input space a spatial pooling tries to learns the sequences, to learn the sequence every mini column is connected to certain amount of synapses from the input. Then the overlap score is calculated and if the overlap score is above some permeance or threshold value the column is activated else it is not. Let’s say the threshold value is 50 so all the columns with overlap score more than 50 will get activated.
 
-![Spacial pooling]<img src=https://github.com/sandhyabagadi/neocortexapi/blob/Devil_Coders/source/MySEProject/All_images-used/SpacialPooling.png width="300" height="200">
+<img src=https://github.com/sandhyabagadi/neocortexapi/blob/Devil_Coders/source/MySEProject/All_images-used/SpacialPooling.png width="300" height="200">
 
 ### 1d. Learning:
 Learning happens only in those columns of the Spatial Pooler which are active. All the connections that are falling in the input space, the permeance value will increase for them i,e the synaptic connection between them will strengthen while any connections that fall outside of the input space for those the permeance value will be decremented . Learning Spatial Pooler learns better in comparison to the Random Spatial Pooler. This step has been basically derived from the concept ‘Hebbian Learning: Neurons that fire together wire together ’.
 For instance, in the diagram given below for any given column in a Spatial Pooler those cell that are connected to the active cells in the input space (i.e which are in green) their permeance will be incremented else those connected outside the input space their permeance will be decremented(the one’s in grey). No inactive column will learn anything.
 
 
-![Learning]<img src=https://github.com/sandhyabagadi/neocortexapi/blob/5bbc26be8a0f92203cb1657bf3fe65d3c6beacd8/source/MySEProject/All_images-used/Learning.png width="300" height="200">
+<img src=https://github.com/sandhyabagadi/neocortexapi/blob/5bbc26be8a0f92203cb1657bf3fe65d3c6beacd8/source/MySEProject/All_images-used/Learning.png width="300" height="200">
 
 ### 1e. Boosting:
 In order for a column in a Spatial pooler to exist it should be a winning column i.e the overlap score should be above some threshold value while non-winning columns are inhibited from learning. Only the winner columns can update their permanence values. Boosting helps to change the overlap score before the inhibition occurs giving less active columns a better chance to express themselves and diminishing columns that seem overactive . Boosting on better enables the learning of input data i.e it improves the efficiency. In other words we can say that the columns that have low overlap score are boosted so that they can better express themselves and all the columns with higher overlap score are inhibited because they are expressing themselves too much.
@@ -91,7 +91,6 @@ The following methods contribute to Uniform Activation of mini-columns.
 |UPDATE_OVERLAPE_DUTY_CYCLE | Computes a moving average of how often column c has overlap greater than stimulusThreshold.| 
 |ACTIVE_DUTY_CYCLE | A moving average denoting the frequency of column activation.|
 |OVERLAP_DUTY_CYCLE | A moving average denoting the frequency of the column’s overlap value being at least equal to the proximal segment activation threshold.|
-|
 
 # 4 References
 
