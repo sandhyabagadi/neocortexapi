@@ -72,7 +72,8 @@ The following methods contribute to Uniform Activation of mini-columns.
 
 # 3 Important parameters and their usage in spatial pooler and Boosting
 
-
+|Parameter Name | Meaning |
+|--- |--- |
 |MAX_BOOST | The Maximum overlap boost factor, Each columns overlap gets multiplied by a boost factor before its considered for inhibition. The actual boost factor for a column is between 1.0 and the maxboost.|
 |GLOBAL_INHIBITION | If TRUE global inhibition algorithm will be used. If FALSE local inhibition algorithm will be used.|
 |INHIBITION_RADIUS | Defines neighbourhood radius of a column.|
