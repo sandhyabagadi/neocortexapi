@@ -220,11 +220,11 @@ Case 1: In this case the boost value is kept 1.0 and duty cycle period value 500
 
 - Example: The below image shows the output and graphs show the output of Permeance values and active-Duty Cycles vs boost Factors.
 
-<img src=https://github.com/sandhyabagadi/neocortexapi/blob/4dae45f4992a9d6fa8d585516b3e882a4ce255cf/source/MySEProject/Output%20files/StableState%20Output%203.PNG width="800" height="500">
+<img src=https://github.com/sandhyabagadi/neocortexapi/blob/4dae45f4992a9d6fa8d585516b3e882a4ce255cf/source/MySEProject/Output%20files/StableState%20Output%203.PNG width="800" height="300">
 
-<img src=https://github.com/sandhyabagadi/neocortexapi/blob/47333fe2cd5d1ca2d43d21c3e1c1298a4dd5a24d/source/MySEProject/All_images-used/case1%20permanence.png width="800" height="500">
+<img src=https://github.com/sandhyabagadi/neocortexapi/blob/47333fe2cd5d1ca2d43d21c3e1c1298a4dd5a24d/source/MySEProject/All_images-used/case1%20permanence.png width="700" height="400">
 
-<img src=https://github.com/sandhyabagadi/neocortexapi/blob/47333fe2cd5d1ca2d43d21c3e1c1298a4dd5a24d/source/MySEProject/All_images-used/case1%20activedutycycle%20vs%20boost.png width="800" height="500">
+<img src=https://github.com/sandhyabagadi/neocortexapi/blob/47333fe2cd5d1ca2d43d21c3e1c1298a4dd5a24d/source/MySEProject/All_images-used/case1%20activedutycycle%20vs%20boost.png width="700" height="400">
 
 Case 2: cycle=0153, i=82, cols=41, s=100.
 
