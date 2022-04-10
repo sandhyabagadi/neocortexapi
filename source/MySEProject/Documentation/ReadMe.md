@@ -162,10 +162,8 @@ Tested Boost Factors are not updated when all minActiveDutyCycles are 0 ( A boos
 Calculates the normalised counter value of the frequency of an event. Event can be overlap or the activation of the column.  Updates a duty cycle estimate with a new value. This is a helper function that is used to update several duty cycle variables in the Column class, such as: overlapDutyCucle, activeDutyCycle, minPctDutyCycleBeforeInh, minPctDutyCycleAfterInh, etc. returns the updated duty cycle.
 
 
-            (period - 1)*dutyCycle + newValue
-   dutyCycle =    ------------------------------         
-                         period    
-
+   ' dutyCycle = (period - 1)*dutyCycle + newValue / period '        
+                  
 
 [link to CalcEventFrequencyUnitTest](https://github.com/sandhyabagadi/neocortexapi/blob/be591e016338b1e2f28751e27094c1f962109f89/source/MySEProject/Unit-Tests/SpacialpoolerCalcEventFrequency-Unit-Test.cs#L80)             
 
