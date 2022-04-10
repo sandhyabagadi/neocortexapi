@@ -134,7 +134,7 @@ Testing to make sure the permanence values doesn’t get updated when all Overla
 
 The boost factors are used to increase the overlap of active columns to improve their chances of becoming active and hence encourage participation of more columns in the learning process. This means that columns that have been active enough have a boost factor of 1, meaning their overlap is not boosted. Columns whose active-duty cycle drops too much below that of their neighbours are boosted depending on how infrequently they have been active. The more infrequent, the more they are boosted.
 
-**Formula :** ' boost =(1-maxBoost)/minDuty*activeDutyCycle + maxBoost '
+**Formula :** ` boost =(1-maxBoost)/minDuty*activeDutyCycle + maxBoost `
 
 [link to UpdateBoostFactorUnitTest](https://github.com/sandhyabagadi/neocortexapi/blob/be591e016338b1e2f28751e27094c1f962109f89/source/MySEProject/Unit-Tests/SpacialpoolerUpdateBoostfactor-Unit-Test.cs#L52)
 
@@ -162,7 +162,7 @@ Tested Boost Factors are not updated when all minActiveDutyCycles are 0 ( A boos
 Calculates the normalised counter value of the frequency of an event. Event can be overlap or the activation of the column.  Updates a duty cycle estimate with a new value. This is a helper function that is used to update several duty cycle variables in the Column class, such as: overlapDutyCucle, activeDutyCycle, minPctDutyCycleBeforeInh, minPctDutyCycleAfterInh, etc. returns the updated duty cycle.
 
 
-   ' dutyCycle = (period - 1)*dutyCycle + newValue / period '        
+   ` dutyCycle = (period - 1)*dutyCycle + newValue / period `       
                   
 
 [link to CalcEventFrequencyUnitTest](https://github.com/sandhyabagadi/neocortexapi/blob/be591e016338b1e2f28751e27094c1f962109f89/source/MySEProject/Unit-Tests/SpacialpoolerCalcEventFrequency-Unit-Test.cs#L80)             
@@ -216,8 +216,15 @@ The inhibition radius determines the size of a column's local neighborhood. A co
 
 Results of the changing BoostFactor parameters are updated in the CSV files for further graph generation and analysis.
 
-Case 1: cycle=0153, i=82, cols=41, s=100 and the total time taken to complete the program is 46:00 minutes.
-![imageofo/p](https://github.com/sandhyabagadi/neocortexapi/blob/4dae45f4992a9d6fa8d585516b3e882a4ce255cf/source/MySEProject/Output%20files/StableState%20Output%203.PNG)
+Case 1: In this case the boost value is kept 1.0 and duty cycle period value 50000. By changing max boost and duty cycle period the stability is attained at cycle=0153, i=82, cols=41, s=100 and we observed that initially the SDR is not representing complete values and the program is slow. When the boosting parameter is activated the SDR is representing complete values and the total time to complete the program is 46:00 minutes.
+
+- Example: The below image shows the output and graphs show the output of Permeance values and active-Duty Cycles vs boost Factors.
+
+<img src=https://github.com/sandhyabagadi/neocortexapi/blob/4dae45f4992a9d6fa8d585516b3e882a4ce255cf/source/MySEProject/Output%20files/StableState%20Output%203.PNG width="300" height="200">
+
+<img src=https://github.com/sandhyabagadi/neocortexapi/blob/47333fe2cd5d1ca2d43d21c3e1c1298a4dd5a24d/source/MySEProject/All_images-used/case1%20permanence.png width="300" height="200">
+
+<img src=https://github.com/sandhyabagadi/neocortexapi/blob/47333fe2cd5d1ca2d43d21c3e1c1298a4dd5a24d/source/MySEProject/All_images-used/case1%20activedutycycle%20vs%20boost.png width="300" height="200">
 
 Case 2: cycle=0153, i=82, cols=41, s=100.
 
@@ -229,10 +236,8 @@ Case 5: cycle= 154, i=26, cols=20, s=100 and the total time taken to complete th
 
 Case 6: By changing Syn Perm Below Stimulus Inc, Syn Perm Trim Threshold, inputBits, numColumns, double max, the stability is attaining at cycle=100 and the total time taken to complete the program is 14 minutes.
 
-The results of changing boost factor parameters are moved to CSV files for example: 
-![sampleimageofresults](https://github.com/sandhyabagadi/neocortexapi/blob/ff6adc6bea58061a5f2cbf55024649798e35542c/source/MySEProject/All_images-used/csvoutput.png)
+[Further more the detailed description of the output observation can be found in this PDF]()
                   
-
 ## 4.Goals Achieved
 
 - Experiments with different variations of MaxBoost, DutyCyclePeriod,and SynPermBelowStimulusInc have been done to analyze the changes in the SDR.
