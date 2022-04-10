@@ -74,7 +74,6 @@ The following methods contribute to Uniform Activation of mini-columns.
 
 
 |MAX_BOOST | The Maximum overlap boost factor, Each columns overlap gets multiplied by a boost factor before its considered for inhibition. The actual boost factor for a column is between 1.0 and the maxboost.|
-|--- |--- |
 |GLOBAL_INHIBITION | If TRUE global inhibition algorithm will be used. If FALSE local inhibition algorithm will be used.|
 |INHIBITION_RADIUS | Defines neighbourhood radius of a column.|
 |DUTY_CYCLE_PERIOD | Number of iterations. The period used to calculate duty cycles. Higher values make it take longer to respond to changes in boost. Shorter values make it more unstable and likely to oscillate.|
