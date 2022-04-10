@@ -31,9 +31,9 @@ namespace NeoCortexApi
     /// Spatial Pooler algorithm. Single-threaded version.
     /// Original version by David Ray, migrated from HTM JAVA. Over time, more and more code has been changed.
     /// </summary>
+    /// 
     public class SpatialPooler : IHtmAlgorithm<int[], int[]>
     {
-       
         /// <summary>
         /// The instance of the <see cref="HomeostaticPlasticityController"/>.
         /// </summary>
@@ -51,7 +51,6 @@ namespace NeoCortexApi
         }
 
         private Connections connections;
-       
 
         /// <summary>
         /// Initializes the Spatial Pooler algorithm.
@@ -370,7 +369,100 @@ namespace NeoCortexApi
         /// A mini-column's overlap mist be highest in its neighborhood in order to become active.
         /// </summary>
         internal int InhibitionRadius { get; set; } = 0;
+        /// <summary>
+        /// Generate CSV files with updated MinActiveDutyCycles and MinOverlapDutyCycles values for Boosting Algorithm analysis.
+        /// </summary>
+        /// <param name="c"></param>
+        public void GenerateCSVforUpdateMinDutyCycles(Connections c)
+        {
+            // Creating Csv File to Analyze the Frequencies
+            string CurrentDirectory = System.IO.Directory.GetCurrentDirectory();
+            string FolderName = "UpdateMinDutyCycles";
+            string CurrentDirectoryPath = Path.Join(CurrentDirectory, FolderName);
+            if (!Directory.Exists(CurrentDirectoryPath))
+            {
+                // Creating UpdateMinDutyCycles Folder if it doesnot exist.
+                Directory.CreateDirectory(CurrentDirectoryPath);
+            }
+            string filepath = "";
+            string filepath1 = "";
+            if (c.HtmConfig.cyclesVal == 0)
+            {
+                // Creating each csv file for each cycle
+                string TempPath = "UpdateMinOverlapDutyCycles_analysis_0" + ".csv";
+                filepath = Path.Join(CurrentDirectoryPath, TempPath);
 
+                string TempPath1 = "UpdateMinActiveDutyCycles_analysis_0" + ".csv";
+                filepath1 = Path.Join(CurrentDirectoryPath, TempPath1);
+            }
+            else
+            {
+                // Creating each csv file for each cycle
+                string TempPath = "UpdateMinOverlapDutyCycles_analysis_" + c.HtmConfig.cyclesVal.ToString() + ".csv";
+                filepath = Path.Join(CurrentDirectoryPath, TempPath);
+
+                string TempPath1 = "UpdateMinActiveDutyCycles_analysis_" + c.HtmConfig.cyclesVal.ToString() + ".csv";
+                filepath1 = Path.Join(CurrentDirectoryPath, TempPath1);
+            }
+
+            if (!File.Exists(filepath))
+            {
+                // Creating New csv file if it does not exist
+                using (StreamWriter writer = new StreamWriter(new FileStream(filepath,
+                FileMode.Create, FileAccess.Write)))
+                {
+                    writer.WriteLine("MinOverlapDutyCycles");
+
+                    foreach (var value in c.HtmConfig.MinOverlapDutyCycles)
+                    {
+                        // writing MinOverlapDutyCycles value into csv file
+                        writer.WriteLine($"{value}");
+                    }
+                }
+            }
+            else
+            {
+                // Appending  alreday existed csv file.
+                using (StreamWriter writer = new StreamWriter(new FileStream(filepath,
+                FileMode.Append, FileAccess.Write)))
+                {
+
+                    foreach (var value in c.HtmConfig.MinOverlapDutyCycles)
+                    {
+                        // writing MinOverlapDutyCycles value into csv file
+                        writer.WriteLine($"{value}");
+                    }
+                }
+            }
+            if (!File.Exists(filepath1))
+            {
+                // Creating New csv file if it does not exist
+                using (StreamWriter writer = new StreamWriter(new FileStream(filepath1,
+                FileMode.Create, FileAccess.Write)))
+                {
+                    writer.WriteLine("MinActiveDutyCycles");
+
+                    foreach (var value in c.HtmConfig.MinActiveDutyCycles)
+                    {
+                        // writing MinActiveDutyCycles value into csv file
+                        writer.WriteLine($"{value}");
+                    }
+                }
+            }
+            else
+            {
+                // Appending  alreday existed csv file.
+                using (StreamWriter writer = new StreamWriter(new FileStream(filepath1,
+                FileMode.Append, FileAccess.Write)))
+                {
+                    foreach (var value in c.HtmConfig.MinActiveDutyCycles)
+                    {
+                        // writing MinActiveDutyCycles value into csv file
+                        writer.WriteLine($"{value}");
+                    }
+                }
+            }
+        }
         /// <summary>
         /// Updates the minimum duty cycles defining normal activity for a column. A column with activity duty cycle below this minimum threshold is boosted.
         /// </summary>
@@ -385,82 +477,7 @@ namespace NeoCortexApi
             {
                 UpdateMinDutyCyclesLocal(c);
             }
-
-            // Creating Csv File to Analyze the Frequencies
-            string CurrentDirectory = System.IO.Directory.GetCurrentDirectory();
-            string FolderName = "UpdateMinDutyCycles";
-            string CurrentDirectoryPath = Path.Join(CurrentDirectory, FolderName);
-            if (!Directory.Exists(CurrentDirectoryPath))
-            {
-                Directory.CreateDirectory(CurrentDirectoryPath);
-            }
-            string filepath = "";
-            string filepath1 = "";
-            if (c.HtmConfig.cyclesVal == 0)
-            {
-                string TempPath = "UpdateMinOverlapDutyCycles_analysis_0" + ".csv";
-                filepath = Path.Join(CurrentDirectoryPath, TempPath);
-
-                string TempPath1 = "UpdateMinActiveDutyCycles_analysis_0" + ".csv";
-                filepath1 = Path.Join(CurrentDirectoryPath, TempPath1);
-            }
-            else
-            {
-                string TempPath = "UpdateMinOverlapDutyCycles_analysis_" + c.HtmConfig.cyclesVal.ToString() + ".csv";
-                filepath = Path.Join(CurrentDirectoryPath, TempPath);
-
-                string TempPath1 = "UpdateMinActiveDutyCycles_analysis_" + c.HtmConfig.cyclesVal.ToString() + ".csv";
-                filepath1 = Path.Join(CurrentDirectoryPath, TempPath1);
-            }
-
-            if (!File.Exists(filepath))
-            {
-                using (StreamWriter writer = new StreamWriter(new FileStream(filepath,
-                FileMode.Create, FileAccess.Write)))
-                {
-                    writer.WriteLine("MinOverlapDutyCycles");
-
-                    foreach (var value in c.HtmConfig.MinOverlapDutyCycles)
-                    {
-                        writer.WriteLine($"{value}");
-                    }
-                }
-            }
-            else
-            {
-                using (StreamWriter writer = new StreamWriter(new FileStream(filepath,
-                FileMode.Append, FileAccess.Write)))
-                {
-                    foreach (var value in c.HtmConfig.MinOverlapDutyCycles)
-                    {
-                        writer.WriteLine($"{value}");
-                    }
-                }
-            }
-            if (!File.Exists(filepath1))
-            {
-                using (StreamWriter writer = new StreamWriter(new FileStream(filepath1,
-                FileMode.Create, FileAccess.Write)))
-                {
-                    writer.WriteLine("MinActiveDutyCycles");
-
-                    foreach (var value in c.HtmConfig.MinActiveDutyCycles)
-                    {
-                        writer.WriteLine($"{value}");
-                    }
-                }
-            }
-            else
-            {
-                using (StreamWriter writer = new StreamWriter(new FileStream(filepath1,
-                FileMode.Append, FileAccess.Write)))
-                {
-                    foreach (var value in c.HtmConfig.MinActiveDutyCycles)
-                    {
-                        writer.WriteLine($"{value}");
-                    }
-                }
-            }
+            GenerateCSVforUpdateMinDutyCycles(c);
         }
 
         /// <summary>
@@ -519,6 +536,64 @@ namespace NeoCortexApi
                 c.HtmConfig.MinOverlapDutyCycles[i] = maxOverlapDuty * c.HtmConfig.MinPctOverlapDutyCycles;
             });
         }
+        /// <summary>
+        /// Generate CSV files with updated OverlapDutyCycles and ActiveDutyCycles values for Boosting Algorithm analysis.
+        /// </summary>
+        public void GenerateCSVforUpdateDutyCycles(Connections c)
+        {
+            // Creating Csv File to Analyze the Frequencies
+            string CurrentDirectory = System.IO.Directory.GetCurrentDirectory();
+            string FolderName = "UpdateDutyCycles";
+            string CurrentDirectoryPath = Path.Join(CurrentDirectory, FolderName);
+            if (!Directory.Exists(CurrentDirectoryPath))
+            {
+                // Creating UpdateDutyCycles Folder if it doesnot exist.
+                Directory.CreateDirectory(CurrentDirectoryPath);
+            }
+            string filepath = "";
+            if (c.HtmConfig.cyclesVal == 0)
+            {
+                // Creating each csv file for each cycle
+                string TempPath = "UpdateDutyCycles_analysis_0" + ".csv";
+                filepath = Path.Join(CurrentDirectoryPath, TempPath);
+            }
+            else
+            {
+                // Creating each csv file for each cycle
+                string TempPath = "UpdateDutyCycles_analysis_" + c.HtmConfig.cyclesVal.ToString() + ".csv";
+                filepath = Path.Join(CurrentDirectoryPath, TempPath);
+            }
+
+            if (!File.Exists(filepath))
+            {
+                // Creating new csv file if it does not exist
+                using (StreamWriter writer = new StreamWriter(new FileStream(filepath,
+                FileMode.Create, FileAccess.Write)))
+                {
+                    writer.WriteLine("Input,OverlapDutyCycles,ActiveDutyCycles");
+                    var OandACycles = c.HtmConfig.OverlapDutyCycles.Zip(c.HtmConfig.ActiveDutyCycles, (n, w) => new { OverlapDutyCycles = n, ActiveDutyCycles = w });
+                    foreach (var nw in OandACycles)
+                    {
+                        // writing OverlapDutyCycles and ActiveDutyCycles into csv file
+                        writer.WriteLine($"{c.HtmConfig.count},{nw.OverlapDutyCycles},{nw.ActiveDutyCycles}");
+                    }
+                }
+            }
+            else
+            {
+                // Appending already existed csv file
+                using (StreamWriter writer = new StreamWriter(new FileStream(filepath,
+                FileMode.Append, FileAccess.Write)))
+                {
+                    var OandACycles = c.HtmConfig.OverlapDutyCycles.Zip(c.HtmConfig.ActiveDutyCycles, (n, w) => new { OverlapDutyCycles = n, ActiveDutyCycles = w });
+                    foreach (var nw in OandACycles)
+                    {
+                        // writing OverlapDutyCycles and ActiveDutyCycles into csv file
+                        writer.WriteLine($"{c.HtmConfig.count},{nw.OverlapDutyCycles},{nw.ActiveDutyCycles}");
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Updates the duty cycles for each column. 
@@ -535,7 +610,7 @@ namespace NeoCortexApi
         /// </param>
         public void UpdateDutyCycles(Connections c, int[] overlaps, int[] activeColumns)
         {
-
+            
             // All columns with overlap are set to 1. Otherwise 0.
             double[] overlapFrequencies = new double[c.HtmConfig.NumColumns];
 
@@ -546,7 +621,7 @@ namespace NeoCortexApi
             // if (sourceA[i] > 0) then targetB[i] = 1;
             // This ensures that all values in overlapCycles are set to 1, if column has some overlap.
             ArrayUtils.GreaterThanXThanSetToYInB(overlaps, overlapFrequencies, 0, 1);
-
+          
             if (activeColumns.Length > 0)
             {
                 // After this step, all rows in activeCycles are set to 1 at the index of active column.
@@ -562,56 +637,10 @@ namespace NeoCortexApi
             c.HtmConfig.OverlapDutyCycles = CalcEventFrequency(c.HtmConfig.OverlapDutyCycles, overlapFrequencies, period);
 
             c.HtmConfig.ActiveDutyCycles = CalcEventFrequency(c.HtmConfig.ActiveDutyCycles, activeColFrequencies, period);
-
-            // Creating Csv File to Analyze the Frequencies
-            string CurrentDirectory = System.IO.Directory.GetCurrentDirectory();
-            string FolderName = "UpdateDutyCycles";
-            string CurrentDirectoryPath = Path.Join(CurrentDirectory, FolderName);
-            if (!Directory.Exists(CurrentDirectoryPath))
-            {
-                Directory.CreateDirectory(CurrentDirectoryPath);
-            }
-            string filepath = "";
-            if (c.HtmConfig.cyclesVal == 0)
-            {
-                string TempPath = "UpdateDutyCycles_analysis_0" + ".csv";
-                filepath = Path.Join(CurrentDirectoryPath, TempPath);
-            }
-            else
-            {
-                string TempPath = "UpdateDutyCycles_analysis_" + c.HtmConfig.cyclesVal.ToString() + ".csv";
-                filepath = Path.Join(CurrentDirectoryPath, TempPath);
-            }
-
-            if (!File.Exists(filepath))
-            {
-                using (StreamWriter writer = new StreamWriter(new FileStream(filepath,
-                FileMode.Create, FileAccess.Write)))
-                {
-
-                    writer.WriteLine("Input,OverlapDutyCycles,ActiveDutyCycles");
-
-                    var OandACycles = c.HtmConfig.OverlapDutyCycles.Zip(c.HtmConfig.ActiveDutyCycles, (n, w) => new { OverlapDutyCycles = n, ActiveDutyCycles = w });
-                    foreach (var nw in OandACycles)
-                    {
-                        writer.WriteLine($"{c.HtmConfig.count},{nw.OverlapDutyCycles},{nw.ActiveDutyCycles}");
-                    }
-                }
-            }
-            else
-            {
-                using (StreamWriter writer = new StreamWriter(new FileStream(filepath,
-                FileMode.Append, FileAccess.Write)))
-                {
-                    var OandACycles = c.HtmConfig.OverlapDutyCycles.Zip(c.HtmConfig.ActiveDutyCycles, (n, w) => new { OverlapDutyCycles = n, ActiveDutyCycles = w });
-                    foreach (var nw in OandACycles)
-                    {
-                        writer.WriteLine($"{c.HtmConfig.count},{nw.OverlapDutyCycles},{nw.ActiveDutyCycles}");
-                    }
-                }
-            }
+            GenerateCSVforUpdateDutyCycles(c);
 
         }
+
 
         /// <summary>
         /// Calculates the normalized counter value of the frequency of an event. 
@@ -783,7 +812,6 @@ namespace NeoCortexApi
                 string TempPath = "BumpUpWeakColumns_analysis_" + c.HtmConfig.cyclesVal.ToString() + ".csv";
                 filepath = Path.Join(CurrentDirectoryPath, TempPath);
             }
-
             for (int i = 0; i < weakColumns.Length; i++)
             {
                 Column col = c.GetColumn(weakColumns[i]);
@@ -791,7 +819,7 @@ namespace NeoCortexApi
                 Pool pool = col.ProximalDendrite.RFPool;
                 double[] perm = pool.GetSparsePermanences();
                 ArrayUtils.RaiseValuesBy(c.HtmConfig.SynPermBelowStimulusInc, perm);
-                
+               
                 if (!File.Exists(filepath))
                 {
                     using (StreamWriter writer = new StreamWriter(new FileStream(filepath,
@@ -815,7 +843,6 @@ namespace NeoCortexApi
                         }
                     }
                 }
-              
                 int[] indexes = pool.GetSparsePotential();
 
                 UpdatePermanencesForColumnSparse(c, perm, col, indexes, true);
@@ -1114,11 +1141,8 @@ namespace NeoCortexApi
                 winnerDelta = 0.001;
             }
             
-
             //double[] tieBrokenOverlaps = new List<double>(overlaps).ToArray();
-
             List<int> winners = new List<int>();
-
             int inhibitionRadius = 500;
             int windowNum = inhibitionRadius;
             for (int column = 0; column < overlaps.Length; column++)
@@ -1129,7 +1153,6 @@ namespace NeoCortexApi
                     int[] neighborhood = getColumnNeighborhood(c, column, inhibitionRadius);
                     // Take overlapps of neighbors
                     double[] neighborhoodOverlaps = ArrayUtils.ListOfValuesByIndicies(overlaps, neighborhood);
-
                     if (column < inhibitionRadius)
                     {
                         windowNum = windowNum + 1;
@@ -1151,7 +1174,6 @@ namespace NeoCortexApi
                         windowNum = inhibitionRadius * 2 + 1;
                     }
                     // Filter neighbors with overlaps bigger than column overlap
-
                     long numBigger = neighborhoodOverlaps.Count(d => d > overlaps[column]);
                     // density will reduce radius
                     int numActive = (int)(0.5 + density * windowNum);
@@ -1162,7 +1184,6 @@ namespace NeoCortexApi
                     }
                 }
             }
-
             return winners.ToArray();
         }
         public virtual int[] inhibitColumnsLocalNewApproach3(Connections c, double[] overlaps, double density)
@@ -1174,9 +1195,7 @@ namespace NeoCortexApi
                 winnerDelta = 0.001;
             }
             
-
             //double[] tieBrokenOverlaps = new List<double>(overlaps).ToArray();
-
             List<int> winners = new List<int>();
             double[] overlapArr = new List<double>(overlaps).ToArray();
             int inhibitionRadius = c.InhibitionRadius;
@@ -1188,7 +1207,6 @@ namespace NeoCortexApi
                 double[] arr = new double[neighborhoodSize];
                 arr[column] = overlapArr[column];
             }
-
             return winners.ToArray();
         }
         */
@@ -1289,8 +1307,66 @@ namespace NeoCortexApi
 
             return winners.ToArray();
         }
+        /// <summary>
+        /// Generate CSV files with updated activeDutyCycle and boostFactor values for Boosting Algorithm analysis.
+        /// </summary>
+        /// <param name="c"></param>
+        public void GenerateCSVforUpdateBoostFactors(Connections c)
+        {
+            // Creating Csv File to Analyze the Frequencies
+            string CurrentDirectory = System.IO.Directory.GetCurrentDirectory();
+            string FolderName = "UpdateBoostFactors"; // $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}"; 
+            string CurrentDirectoryPath = Path.Join(CurrentDirectory, FolderName);
+            if (!Directory.Exists(CurrentDirectoryPath))
+            {
+                // Creating UpdateBoostFactors Folder if it doesnot exist.
+                Directory.CreateDirectory(CurrentDirectoryPath);
+            }
+            string filepath = "";
+            if (c.HtmConfig.cyclesVal == 0)
+            {
+                // Creating each csv file for each cycle
+                string TempPath = "UpdateBoostFactors_analysis_0" + ".csv";
+                filepath = Path.Join(CurrentDirectoryPath, TempPath);
+            }
+            else
+            {
+                // Creating each csv file for each cycle
+                string TempPath = "UpdateBoostFactors_analysis_" + c.HtmConfig.cyclesVal.ToString() + ".csv";
+                filepath = Path.Join(CurrentDirectoryPath, TempPath);
+            }
+            if (!File.Exists(filepath))
+            {
+                // Creating csv file if it doesnot exist
+                using (StreamWriter writer = new StreamWriter(new FileStream(filepath,
+                FileMode.Create, FileAccess.Write)))
+                {
+                    writer.WriteLine("Input,activeDutyCycles,boostFactors");
 
+                    var OandBValues = c.HtmConfig.ActiveDutyCycles.Zip(c.BoostFactors, (n, w) => new { activeDutyCycle = n, boostFactor = w });
+                    foreach (var nw in OandBValues)
+                    {
+                        // writing activeDutyCycle and boostFactor into csv file
+                        writer.WriteLine($"{c.HtmConfig.count},{nw.activeDutyCycle}, {nw.boostFactor}");
+                    }
 
+                }
+            }
+            else
+            {
+                // Appending the already existed csv file
+                using (StreamWriter writer = new StreamWriter(new FileStream(filepath,
+                FileMode.Append, FileAccess.Write)))
+                {
+                    var OandBValues = c.HtmConfig.ActiveDutyCycles.Zip(c.BoostFactors, (n, w) => new { activeDutyCycle = n, boostFactor = w });
+                    foreach (var nw in OandBValues)
+                    {
+                        // writing activeDutyCycle and boostFactor into csv file
+                        writer.WriteLine($"{c.HtmConfig.count},{nw.activeDutyCycle}, {nw.boostFactor}");
+                    }
+                }
+            }
+        }
         /// <summary>
         /// Update the boost factors for all columns. The boost factors are used to increase the overlap of inactive columns to improve
         /// their chances of becoming active. and hence encourage participation of more columns in the learning process. 
@@ -1354,54 +1430,7 @@ namespace NeoCortexApi
             ArrayUtils.SetIndexesTo(boostFactors, idxOfActiveColumns.ToArray(), 1.0d);
 
             c.BoostFactors = boostFactors;
-
-            // Creating Csv File to Analyze the Frequencies
-            string CurrentDirectory = System.IO.Directory.GetCurrentDirectory();
-            string FolderName = "UpdateBoostFactors"; // $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}"; 
-            string CurrentDirectoryPath = Path.Join(CurrentDirectory, FolderName);
-            if (!Directory.Exists(CurrentDirectoryPath))
-            {
-                Directory.CreateDirectory(CurrentDirectoryPath);
-            }
-            string filepath = "";
-            if (c.HtmConfig.cyclesVal == 0)
-            {
-                string TempPath = "UpdateBoostFactors_analysis_0" + ".csv";
-                filepath = Path.Join(CurrentDirectoryPath, TempPath);
-            }
-            else
-            {
-                string TempPath = "UpdateBoostFactors_analysis_" + c.HtmConfig.cyclesVal.ToString() + ".csv";
-                filepath = Path.Join(CurrentDirectoryPath, TempPath);
-            }
-            if (!File.Exists(filepath))
-            {
-                using (StreamWriter writer = new StreamWriter(new FileStream(filepath,
-                FileMode.Create, FileAccess.Write)))
-                {
-                    writer.WriteLine("Input,activeDutyCycles,boostFactors");
-
-                    var OandBValues = activeDutyCycles.Zip(boostFactors, (n, w) => new { activeDutyCycle = n, boostFactor = w });
-                    foreach (var nw in OandBValues)
-                    {
-                        writer.WriteLine($"{c.HtmConfig.count},{nw.activeDutyCycle},{nw.boostFactor}");
-                    }
-
-                }
-            }
-            else
-            {
-                using (StreamWriter writer = new StreamWriter(new FileStream(filepath,
-                FileMode.Append, FileAccess.Write)))
-                {
-                    var OandBValues = activeDutyCycles.Zip(boostFactors, (n, w) => new { activeDutyCycle = n, boostFactor = w });
-                    foreach (var nw in OandBValues)
-                    {
-                        writer.WriteLine($"{c.HtmConfig.count},{nw.activeDutyCycle},{nw.boostFactor}");
-                    }
-                }
-            }
-           
+            GenerateCSVforUpdateBoostFactors(c);
         }
 
 
@@ -1621,4 +1650,3 @@ namespace NeoCortexApi
         }
     }
 }
-
