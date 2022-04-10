@@ -109,7 +109,7 @@ for (int j = 0; j < ExpectedPermanences[i].Length; j++)
 Assert.IsTrue(Math.Abs(ExpectedPermanences[i][j] - calculatedperms[j]) <= 0.01);
 }
 ```
-
+[link to BumpUpWeakColoumnUnitTest](https://github.com/sandhyabagadi/neocortexapi/blob/be591e016338b1e2f28751e27094c1f962109f89/source/MySEProject/Unit-Tests/SpacialPoolerBumpUpWeakColoumns-Unit-Test.cs#L51)
 #### 1a. SynPermBelowStimulusInc :
 
 Synapses of weak mini-columns will be stimulated by the boosting mechanism. The stimulation is done by adding of this increment value to the current permanence value of the synapse.
@@ -123,12 +123,12 @@ Tested if the permanence values are getting updated correctly in Bumpupweakcolou
 SynPermBelowStimulusInc = 0.01;
 SynPermTrimThreshold = 0.05;
 
-[link to the case1 code](https://github.com/sandhyabagadi/neocortexapi/blob/a14e6e7cba0224b0ddb2e3c30bd948159be6f45a/source/MySEProject/Unit-Tests/SpacialPoolerBumpUpWeakColoumns-Unit-Test.cs#L52)
+[link to the case1 code](https://github.com/sandhyabagadi/neocortexapi/blob/be591e016338b1e2f28751e27094c1f962109f89/source/MySEProject/Unit-Tests/SpacialPoolerBumpUpWeakColoumns-Unit-Test.cs#L52)
 
 **Case2:** 
 Testing to make sure the permanence values doesn’t get updated when all OverlapDutyCycles are greater than MinOverlapDutyCycles (as it will not be considered as a weak column with this condition the permanence values won’t get updated).
 
-[link to the case2 code](https://github.com/sandhyabagadi/neocortexapi/blob/a14e6e7cba0224b0ddb2e3c30bd948159be6f45a/source/MySEProject/Unit-Tests/SpacialPoolerBumpUpWeakColoumns-Unit-Test.cs#L187)
+[link to the case2 code](https://github.com/sandhyabagadi/neocortexapi/blob/be591e016338b1e2f28751e27094c1f962109f89/source/MySEProject/Unit-Tests/SpacialPoolerBumpUpWeakColoumns-Unit-Test.cs#L188)
 
 ### 2. UpdateBoostFactor.
 
@@ -136,42 +136,48 @@ The boost factors are used to increase the overlap of active columns to improve 
 
 **Formula :** ' boost =(1-maxBoost)/minDuty*activeDutyCycle + maxBoost '
 
+[link to UpdateBoostFactorUnitTest](https://github.com/sandhyabagadi/neocortexapi/blob/be591e016338b1e2f28751e27094c1f962109f89/source/MySEProject/Unit-Tests/SpacialpoolerUpdateBoostfactor-Unit-Test.cs#L52)
+
 #### MaxBoost: 
 The Maximum overlap boost factor, Each columns overlap gets multiplied by a boost factor before its considered for inhibition. The actual boost factor for a column is between 1.0 and the maxboost.
 
 **Case1:** 
 Tested Boost Factors are updated as per the mathematical formula defined in UpdateBoostFactors method with maxboost 10
 
-[Link to case1 code](https://github.com/sandhyabagadi/neocortexapi/blob/a14e6e7cba0224b0ddb2e3c30bd948159be6f45a/source/MySEProject/Unit-Tests/SpacialpoolerUpdateBoostfactor-Unit-Test.cs#L53)
+[Link to case1 code](https://github.com/sandhyabagadi/neocortexapi/blob/be591e016338b1e2f28751e27094c1f962109f89/source/MySEProject/Unit-Tests/SpacialpoolerUpdateBoostfactor-Unit-Test.cs#L52)
 
 **Case2:** 
 Tested Boost Factors are updated as per the mathematical formula defined in UpdateBoostFactors method with maxboost 1
 
-[Link to case2 code](https://github.com/sandhyabagadi/neocortexapi/blob/a14e6e7cba0224b0ddb2e3c30bd948159be6f45a/source/MySEProject/Unit-Tests/SpacialpoolerUpdateBoostfactor-Unit-Test.cs#L119)
+[Link to case2 code](https://github.com/sandhyabagadi/neocortexapi/blob/be591e016338b1e2f28751e27094c1f962109f89/source/MySEProject/Unit-Tests/SpacialpoolerUpdateBoostfactor-Unit-Test.cs#L128)
 
 **Case3:** 
 Tested Boost Factors are not updated when all minActiveDutyCycles are 0 ( A boost factor of 1.0 is used if the duty cycle is >= minOverlapDutycycle )
 
-[Link to case3 code](https://github.com/sandhyabagadi/neocortexapi/blob/a14e6e7cba0224b0ddb2e3c30bd948159be6f45a/source/MySEProject/Unit-Tests/SpacialpoolerUpdateBoostfactor-Unit-Test.cs#L86)
+[Link to case3 code](https://github.com/sandhyabagadi/neocortexapi/blob/be591e016338b1e2f28751e27094c1f962109f89/source/MySEProject/Unit-Tests/SpacialpoolerUpdateBoostfactor-Unit-Test.cs#L89)
 
 ### 3. CalcEventFrequency.
 
 
 Calculates the normalised counter value of the frequency of an event. Event can be overlap or the activation of the column.  Updates a duty cycle estimate with a new value. This is a helper function that is used to update several duty cycle variables in the Column class, such as: overlapDutyCucle, activeDutyCycle, minPctDutyCycleBeforeInh, minPctDutyCycleAfterInh, etc. returns the updated duty cycle.
 
-                   (period - 1)*dutyCycle + newValue
-      dutyCycle = ----------------------------------
-                             period                 
+
+            (period - 1)*dutyCycle + newValue
+   dutyCycle =    ------------------------------         
+                         period    
+
+
+[link to CalcEventFrequencyUnitTest](https://github.com/sandhyabagadi/neocortexapi/blob/be591e016338b1e2f28751e27094c1f962109f89/source/MySEProject/Unit-Tests/SpacialpoolerCalcEventFrequency-Unit-Test.cs#L80)             
 
 **Case1:** 
 Tested duty cycles are updated as per the mathematical formula defined in CalcEventFrequency method with period 1000
 
-[Link to case1 code](https://github.com/sandhyabagadi/neocortexapi/blob/a14e6e7cba0224b0ddb2e3c30bd948159be6f45a/source/MySEProject/Unit-Tests/SpacialpoolerCalcEventFrequency-Unit-Test.cs#L74)
+[Link to case1 code](https://github.com/sandhyabagadi/neocortexapi/blob/be591e016338b1e2f28751e27094c1f962109f89/source/MySEProject/Unit-Tests/SpacialpoolerCalcEventFrequency-Unit-Test.cs#L80)
 
 **Case2:** 
 Tested duty cycles are updated as per the mathematical formula defined in CalcEventFrequency method with period 1
 
-[Link to case2 code](https://github.com/sandhyabagadi/neocortexapi/blob/a14e6e7cba0224b0ddb2e3c30bd948159be6f45a/source/MySEProject/Unit-Tests/SpacialpoolerCalcEventFrequency-Unit-Test.cs#L99)
+[Link to case2 code](https://github.com/sandhyabagadi/neocortexapi/blob/be591e016338b1e2f28751e27094c1f962109f89/source/MySEProject/Unit-Tests/SpacialpoolerCalcEventFrequency-Unit-Test.cs#L109)
 
 ### 4. UpdateMinDutyCycles.
 
@@ -192,6 +198,7 @@ c.HtmConfig.MinActiveDutyCycles[i] = maxActiveDuty * c.HtmConfig.MinPctActiveDut
 
 c.HtmConfig.MinOverlapDutyCycles[i] = maxOverlapDuty * c.HtmConfig.MinPctOverlapDutyCycles;
 ```
+[link to UpdateMinDutyCyclesUnitTest](https://github.com/sandhyabagadi/neocortexapi/blob/be591e016338b1e2f28751e27094c1f962109f89/source/MySEProject/Unit-Tests/SpacialPoolerUpdateMinDutyCycles-Unit-Test.cs#L77)   
 
 #### InhibitionRadius: 
 The inhibition radius determines the size of a column's local neighborhood. A cortical column must overcome the overlap score of columns in its neighborhood in order to become active. This radius is updated every learning round. It grows and shrinks with the average number of connected synapses per column.
