@@ -1,3 +1,7 @@
+# Introduction
+
+This Document provides brief details of investigated articles on Boosting and definitions of the parameters included in it.
+
 # 1. Hierarchical Temporal Memory (HTM) 
 
 The Hierarchical Temporal Memory Cortical Learning Algorithm (HTM CLA) is an algorithm inspired by the biological functioning of the neocortex, which combines spatial pattern recognition and temporal sequence learning. It organises neurons in layers of column-like units built from many neurons, such that the units are connected into structures called areas. Areas, columns and mini-columns are hierarchically organised and can further be connected in more complex networks, which implement higher cognitive functions like invariant representations, pattern- and sequence-recognition etc. HTM CLA in general consists of two major algorithms: Spatial Pooler and Temporal Memory.The Spatial Pooler operates on mini-columns connected to sensory inputs. It is responsible to learn spatial patterns by encoding the pattern into the sparse distributed representation (SDR). The created SDR, which represents the encoded spatial pattern is further used as the input for the Temporal Memory (TM)algorithm.
@@ -132,3 +136,6 @@ The following methods contribute to Uniform Activation of mini-columns.
 
 [4] Deep Learning Author: Mariette Awad, Rahul Khanna https://link.springer.com/chapter/10.1007/978-1-4302-5990-9_9
 
+[5] "Numenta," [Online]. Available: https://www.youtube.com/watch?v=MSwoNAODrgk
+
+[6] Team_DevilCoders, "Github," 2022. [Online]. Available: https://github.com/sandhyabagadi/neocortexapi/blob/Devil_Coders/source/MySEProject/Documentation/ReadMe.md.

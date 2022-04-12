@@ -54,6 +54,8 @@ Case7: Changed SynPermBelowStimulusInc and SynPermTrimThreshold (0.5 & 0.09) wit
 ### 2b Code wrtten to generate CSV files for each method used.
 
 - Generated CSV files for individual methods mentioned below with necessary data which will help in the analysis of boosting algorithm. 
+
+[Code to generate CSV files](https://github.com/sandhyabagadi/neocortexapi/blob/43358e4ee36cb1d8cf44bb39384ca7b2e62ad24d/source/MySEProject/SpatialPooler.cs#L767)
 - In Spatial Pooler '2 types' of methods are used boosting algorithm.
 Those methods are as follows:
 
@@ -134,6 +136,10 @@ Testing to make sure the permanence values doesn’t get updated when all Overla
 
 The boost factors are used to increase the overlap of active columns to improve their chances of becoming active and hence encourage participation of more columns in the learning process. This means that columns that have been active enough have a boost factor of 1, meaning their overlap is not boosted. Columns whose active-duty cycle drops too much below that of their neighbours are boosted depending on how infrequently they have been active. The more infrequent, the more they are boosted.
 
+Description:
+
+This unit-test helps in verifying the absolute values of manually calculated Boost Factors from the below mentioned formulae and Boost Factor values from UpdateBoostFactors method.
+
 **Formula :** ` boost =(1-maxBoost)/minDuty*activeDutyCycle + maxBoost `
 
 [link to UpdateBoostFactorUnitTest](https://github.com/sandhyabagadi/neocortexapi/blob/be591e016338b1e2f28751e27094c1f962109f89/source/MySEProject/Unit-Tests/SpacialpoolerUpdateBoostfactor-Unit-Test.cs#L52)
@@ -160,6 +166,8 @@ Tested Boost Factors are not updated when all minActiveDutyCycles are 0 ( A boos
 
 
 Calculates the normalised counter value of the frequency of an event. Event can be overlap or the activation of the column.  Updates a duty cycle estimate with a new value. This is a helper function that is used to update several duty cycle variables in the Column class, such as: overlapDutyCucle, activeDutyCycle, minPctDutyCycleBeforeInh, minPctDutyCycleAfterInh, etc. returns the updated duty cycle.
+
+Description: This Unit-test helps in Verifying if manually calculated duty cycle values and dutycycle values from CalcEventFrequency method are equal or not with the help of below mentioned formulae.
 
 
    ` dutyCycle = (period - 1)*dutyCycle + newValue / period `       
@@ -226,17 +234,17 @@ Case 1: In this case the boost value is kept 1.0 and duty cycle period value 500
 
 <img src=https://github.com/sandhyabagadi/neocortexapi/blob/47333fe2cd5d1ca2d43d21c3e1c1298a4dd5a24d/source/MySEProject/All_images-used/case1%20activedutycycle%20vs%20boost.png width="700" height="400">
 
-Case 2: cycle=0153, i=82, cols=41, s=100.
+Case 2: cycle=0232, i=0, cols=40, s=100 we again observed that initially the SDR is not representing complete values and the program is slow. When the boosting parameter is activated the SDR is representing complete values and the total time to complete the program is same when compared with case1.  
 
-Case 3: cycle=0153, i=82, cols=41, s=100 and the total time taken to complete the program is 42:00 minutes.
+Case 3: cycle=096, i=0, cols=41, s=100 and the total time taken to complete the program is 28:00 minutes When the boosting parameter is activated the SDR is representing complete values and the total time to complete the program is reduced when compared with case1 and case2 (42 minutes).
 
-Case 4: cycle=0096, i=0, cols=41, s=100 and the total time taken to complete the program is 28:00 minutes
+Case 4: In this case we decreased the boost value to 5.0 and duty cycle period value 100000 and changed one more parameter which plays a vital role for making it stable is “BUMP UP WEAK COLUMNS” to true. By changing max boost, duty cycle period and Bump Up Weak Colum to true the stability is attaining at cycle=096, i=0, cols=41, s=100 and this time we observed that it disables all the weak columns
 
-Case 5: cycle= 154, i=26, cols=20, s=100 and the total time taken to complete the program is 2 minutes.
+Case 5: cycle=0331, i=41, cols=20, s=100 and the total time taken to complete the program is 2 minutes. We observed that when we reduce these values the stability increases, and it reduces the execution time. 
 
-Case 6: By changing Syn Perm Below Stimulus Inc, Syn Perm Trim Threshold, inputBits, numColumns, double max, the stability is attaining at cycle=100 and the total time taken to complete the program is 14 minutes.
+Case 6: By changing Syn Perm Below Stimulus Inc, Syn Perm Trim Threshold, inputBits, numColumns, double max, the stability is attaining at cycle=0100, i=40, cols=20, s=100 and the total time taken to complete the program is 14 minutes.
 
-[Further more the detailed description of the output observation can be found in this PDF]()
+[Further more the detailed description of the output observation can be found in this PDF](https://github.com/sandhyabagadi/neocortexapi/blob/Devil_Coders/source/MySEProject/Documentation/Analyze_and_Describe_BoostingAgorithm.pdf)
                   
 ## 4.Goals Achieved
 
@@ -264,3 +272,4 @@ Case 6: By changing Syn Perm Below Stimulus Inc, Syn Perm Trim Threshold, inputB
 
 [6] D. Dobric, "Github," [Online]. Available: https://github.com/ddobric/neocortexapi-classification.
 
+[7] Team_Devil_coders, "Github(BoostingAlgorithm)," 2022. [Online]. Available: https://github.com/sandhyabagadi/neocortexapi/blob/Devil_Coders/source/MySEProject/Documentation/BoostingAlgorithm.md.
