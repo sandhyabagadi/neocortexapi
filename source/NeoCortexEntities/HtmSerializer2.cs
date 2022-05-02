@@ -80,6 +80,52 @@ namespace NeoCortexApi.Entities
             sw.Write(ValueDelimiter);
             sw.Write(ParameterDelimiter);
         }
+
+
+        public void SerializeValue(object val, Type type, StreamWriter sw)
+        {
+            if (type.IsValueType)
+            {
+                sw.Write(ValueDelimiter);
+                sw.Write(val.ToString());
+                sw.Write(ValueDelimiter);
+                sw.Write(ParameterDelimiter);
+            }
+            else
+            {
+                var method = type.GetMethod("Serialize", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+                if (method != null)
+                {
+                    method.Invoke(val, new object[] { sw });
+                }
+                else
+                    throw new NotSupportedException($"No serialization implemented on the type {type}!");
+            }
+        }
+
+        public T DeserializeValue<T>(StreamReader sr)
+        {
+            Type type = typeof(T);
+
+            if (type.IsValueType)
+            {
+                var reader = sr.ReadLine().Trim().Replace(ParameterDelimiter.ToString(), "");
+                return (T)Convert.ChangeType(reader, type);
+            }
+            else
+            {
+                var method = type.GetMethod("Deserialize");
+                if (method != null)
+                {
+                    return (T)method.Invoke(null, new object[] { sr });
+                }
+                else
+                    throw new NotSupportedException($"No de-serialization implemented on the type {type}!");
+            }
+
+        }
+
+
         /// <summary>
         /// Read the property of type Int.
         /// </summary>
@@ -274,7 +320,7 @@ namespace NeoCortexApi.Entities
         {
             sw.Write(ValueDelimiter);
             sw.WriteLine();
-            
+
             for (int i = 0; i < array.GetLength(0); i++)
             {
                 for (int j = 0; j < array.GetLength(1); j++)
@@ -327,7 +373,7 @@ namespace NeoCortexApi.Entities
                 }
                 return vs;
             }
-            
+
         }
 
         /// <summary>
@@ -384,7 +430,7 @@ namespace NeoCortexApi.Entities
                 }
             }
             sw.Write(ParameterDelimiter);
-            
+
         }
 
         /// <summary>
@@ -435,11 +481,11 @@ namespace NeoCortexApi.Entities
             return cells1;
         }
 
-        ///// <summary>
-        ///// Deserializes from text file to Cell
-        ///// </summary>
-        ///// <param name="sr"></param>
-        ///// <returns>Cell</returns>
+        /// <summary>
+        /// Deserializes from text file to Cell
+        /// </summary>
+        /// <param name="sr"></param>
+        /// <returns>Cell</returns>
         public Cell DeserializeCell(StreamReader sr)
         {
             while (sr.Peek() >= 0)
@@ -469,6 +515,25 @@ namespace NeoCortexApi.Entities
         /// </summary>
         /// <param name="keyValues"></param>
         /// <param name="sw"></param>
+        public void SerializeGenericValue<TKey, TValue>(Dictionary<TKey, TValue> keyValues, StreamWriter sw)
+        {
+            sw.Write(ValueDelimiter);
+            foreach (KeyValuePair<TKey, TValue> i in keyValues)
+            {
+                //TODO..
+                //sw.Write(i.Key + KeyValueDelimiter + i.Value.ToString());
+                // sw.Write(ElementsDelimiter);
+            }
+            sw.Write(ParameterDelimiter);
+        }
+
+
+
+        /// <summary>
+        /// Serialize the dictionary with key:string and value:int.
+        /// </summary>
+        /// <param name="keyValues"></param>
+        /// <param name="sw"></param>
         public void SerializeValue(Dictionary<String, int> keyValues, StreamWriter sw)
         {
             sw.Write(ValueDelimiter);
@@ -479,6 +544,8 @@ namespace NeoCortexApi.Entities
             }
             sw.Write(ParameterDelimiter);
         }
+
+
         /// <summary>
         /// Read the dictionary with key:string and value:int.
         /// <summary>
@@ -603,7 +670,7 @@ namespace NeoCortexApi.Entities
         //    {
         //        keyValues.Add(DistalDendrite.Deserialize(reader));
         //    }
-            
+
         //    return keyValues;
         //}
         ///// <summary>
@@ -731,11 +798,12 @@ namespace NeoCortexApi.Entities
             }
             sw.Write(ParameterDelimiter);
         }
-        ///// <summary>
-        ///// Read the dictionary with key:int and value:Synapse.
-        ///// </summary>
-        ///// <param name="reader"></param>
-        ///// <returns>Dictionary<int, Synapse></returns>
+
+        /// <summary>
+        /// Read the dictionary with key:int and value:Synapse.
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns>Dictionary<int, Synapse></returns>
         public int ReadKeyISValue(string reader)
         {
             string val = reader.Replace(KeyValueDelimiter, "");
@@ -745,6 +813,7 @@ namespace NeoCortexApi.Entities
             }
             return Convert.ToInt32(val);
         }
+
         /// <summary>
         /// Serialize the Concurrentdictionary with key:int and value:DistalDendrite.
         /// </summary>
